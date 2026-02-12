@@ -4,3 +4,7 @@ _site/
 .jekyll-metadata
 .DS_Store
 .idea
+/2026/p1_measuring_software/POC/extensions
+/2026/p1_measuring_software/POC/LibreHardwareMonitorCLI
+/2026/p1_measuring_software/POC/playwright_user_data
+*.csv
