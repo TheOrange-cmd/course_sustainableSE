@@ -17,6 +17,25 @@ A working POC can be found [here](https://github.com/TheOrange-cmd/course_sustai
 
 ## Introduction
 
+As of 2024, the average person spends over six hours online every day, contributing to a global data usage of nearly 400 million terabytes per day (Statista, 2024)[^statista]. While much of the sustainability discussions focus on the massive energy influence of data centers, which accounted for example for 4% of US national energy consumption in 2023 (Shehabi et al., 2024)[^shehabi], the energy usage by billions of end-user devices still has an essential impact. Every website load requires processing scripts, layout elements, and media.
+
+However, some of the load is dedicated not to the content requested by the user, but to the "invisible" and sometimes not web advertisements and tracking scripts. Previous research suggests that these elements introduce a measurable overhead. For example, advertisements can add several watts of power consumption to a single browsing session (Simons & Pras)[^web-ads].
+
+Given the size of internet use, reducing the energy cost of loading a webpage can lead to significant savings in energy, as ad blockers like uBlock Origin claim to increase efficiency by preventing these scripts from ever loading. This project will try to experiment with that claim by comparing the energy consumption of four major browsers (Chrome, Firefox, Edge, and Brave) on different websites to determine if ads and script filtering can lower a device's carbon footprint.
+
+### uBlock Origin
+uBlock Origin is a free, open-source browser extension designed for advertisement filtering. Unlike many other ad blockers, it is marketed as one that prioritizes CPU and memory efficiency. Via filter lists, it intercepts requests from the browser to ad-related servers and prevents the execution of those scripts. We examine whether this reduction in network requests and script execution results directly in lower hardware use.
+
+### LibreHardwareMonitor
+LibreHardwareMonitor is an open-source tool that provides real-time access to the sensors in a Windows-based computer. For this project, it serves as the primary measurement instrument, allowing us to track the CPU Package Power and GPU Power in watts. By isolating these metrics during controlled browsing sessions, we can measure the exact energy cost of rendering specific websites with and without active advertisement filtering.
+
+### Web Browsers
+The efficiency of an ad blocker is often tied to the performance and functionality of the browser. In this study, we compare two primary architectures:
+1. **Chromium** (Chrome, Edge, Brave): An open-source project by Google that powers the majority of modern browsers, which uses the V8 JavaScript engine and the Blink rendering engine.
+2. **Gecko** (Firefox): Developed by Mozilla, this engine is known for its independent architecture and different approach to resource management and privacy.
+
+
+
 ## Expected Effects and Hypothesis
 
 Prior work shows that online advertising introduces measurable overhead in web browsing workloads, which, in turn, increases device energy consumption. Simons and Pras[^web-ads] demonstrate that advertisements can add several watts of power consumption to during browsing sessions. This establishes a clear mechanism through which ad blocking may reduce energy use.
@@ -47,7 +66,9 @@ The study is guided by the following research questions:
 
 [^measure-paper] K. A. Khan, M. T. Iqbal, and M. Jamil, “Impact of Ad Blockers on Computer Power Consumption while Web Browsing: A Comparative Analysis,” EJECE, vol. 8, no. 5, pp. 18–24, Oct. 2024, doi: 10.24018/ejece.2024.8.5.650.
 
+[^statista] Statista. (2024). Volume of data created, captured, copied, and consumed worldwide from 2010 to 2025.
 
+[^shehabi] Shehabi et al. (2024): Shehabi, A., et al. (2024). United States Data Center Energy Usage Report. Lawrence Berkeley National Laboratory.
 
 <!-- This problem takes another level if we are counting on these measurements to make **groundbreaking research contributions** in this area. Some research projects in the past have underestimated this issue and failed to produce replicable findings. Hence, this article presents a roadmap on how to properly set up a scientific methodology to run energy efficiency experiments. It mostly stems from my previous work on [doing research and publishing](/publications) on Green Software.
 
