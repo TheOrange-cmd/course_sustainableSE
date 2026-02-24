@@ -12,9 +12,44 @@ all_projects_page: "../p1_measuring_software" # Do not change this
 
 A working POC can be found [here](https://github.com/TheOrange-cmd/course_sustainableSE/tree/adblock/2026/p1_measuring_software/POC).
 
-Body lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-This problem takes another level if we are counting on these measurements to make **groundbreaking research contributions** in this area. Some research projects in the past have underestimated this issue and failed to produce replicable findings. Hence, this article presents a roadmap on how to properly set up a scientific methodology to run energy efficiency experiments. It mostly stems from my previous work on [doing research and publishing](/publications) on Green Software.
+# Browser Energy Usage: The Effect of Ad Blocking
+
+## Introduction
+
+## Expected Effects and Hypothesis
+
+Prior work shows that online advertising introduces measurable overhead in web browsing workloads, which, in turn, increases device energy consumption. Simons and Pras[^web-ads] demonstrate that advertisements can add several watts of power consumption to during browsing sessions. This establishes a clear mechanism through which ad blocking may reduce energy use.
+
+Subsequent studies reinforce this expectation. Pearce[^load-time] reports page loading times being reduced with up to 28% when using common ad blockers, suggesting a meaningful decrease in computational work. Because CPU and GPU use are closely linked to power consumption, such reductions indicates corresponding energy savings. Direct measurements of Khan et al.[^measure-paper] further confirm this relation, showing average power reductions of around 40% on multimedia websites, when ad blockers are enabled. However, these effects vary substantially by website type (multimedia, news, etc.).
+
+Given the variability reported in literature, the present study expects a mean reduction in power consumption of 15% (SD 10%) when ad blocking is enabled. This conservative estimate reflects the variability observed across different website categories and browsers, while remaining consistent with previously reported values.
+
+Therefore, the main hypothesis is:
+
+1. H<sub>0</sub>: Enabling uBlock Origin does not significantly change mean browser power consumption.
+2. H<sub>1</sub>: Enabling uBlock Origin reduces mean browser power consumption by 15%.
+
+The study is guided by the following research questions:
+
+1. RQ1: What is the effect of enabling uBlock Origin on power consumption across different web browsers and websites?
+
+2. RQ2: How much of the variation in browser power consumption can be explained by changes in downloaded data volume and processing load when using uBlock Origin?
+
+
+
+
+# References
+
+[^web-ads] R. J. G. Simons and A. Pras, “The Hidden Energy Cost of Web Advertising”, Aug. 2010.
+
+[^load-time] J. M. Pearce, “Energy Conservation with Open Source Ad Blockers,” Technologies, vol. 8, no. 2, p. 18, Mar. 2020, doi: 10.3390/technologies8020018.
+
+[^measure-paper] K. A. Khan, M. T. Iqbal, and M. Jamil, “Impact of Ad Blockers on Computer Power Consumption while Web Browsing: A Comparative Analysis,” EJECE, vol. 8, no. 5, pp. 18–24, Oct. 2024, doi: 10.24018/ejece.2024.8.5.650.
+
+
+
+<!-- This problem takes another level if we are counting on these measurements to make **groundbreaking research contributions** in this area. Some research projects in the past have underestimated this issue and failed to produce replicable findings. Hence, this article presents a roadmap on how to properly set up a scientific methodology to run energy efficiency experiments. It mostly stems from my previous work on [doing research and publishing](/publications) on Green Software.
 
 
 This article is divided into two main parts: 1) how to set up energy measurements with minimum bias, and 2) how to analyse and take scientific conclusions from your energy measurements.
@@ -49,5 +84,7 @@ It is not possible to shut off the unnecessary things that run in our system. St
 
 ### 
 
-Nevertheless, using statistical metrics to measure effect size is not enough – there should be a discussion of the **practical effect size**. More important than demonstrating that we came up with a new version that is more energy efficient, you need to demonstrate that the benefits will actually be reflected in the overall energy efficiency of normal usage of the software. For example, imagine that the results show that a given energy improvement was only able to save one joule of energy throughout a whole day of intensive usage of your cloud software. This perspective can hardly be captured by classic effect-size measures. The statistical approach to effect size (e.g., mean difference, Cohen's-*d*, and so on) is agnostic of the context of the problem at hand.
+Nevertheless, using statistical metrics to measure effect size is not enough – there should be a discussion of the **practical effect size**. More important than demonstrating that we came up with a new version that is more energy efficient, you need to demonstrate that the benefits will actually be reflected in the overall energy efficiency of normal usage of the software. For example, imagine that the results show that a given energy improvement was only able to save one joule of energy throughout a whole day of intensive usage of your cloud software. This perspective can hardly be captured by classic effect-size measures. The statistical approach to effect size (e.g., mean difference, Cohen's-*d*, and so on) is agnostic of the context of the problem at hand. -->
+
+
 
