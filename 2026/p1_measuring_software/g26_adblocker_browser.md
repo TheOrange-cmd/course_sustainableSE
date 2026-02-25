@@ -44,10 +44,8 @@ Subsequent studies reinforce this expectation. Pearce[^load-time] reports page l
 
 Given the variability reported in literature, the present study expects a mean reduction in power consumption of 15% (SD 10%) when ad blocking is enabled. This conservative estimate reflects the variability observed across different website categories and browsers, while remaining consistent with previously reported values.
 
-Therefore, the main hypothesis is:
+Given the rapid evolution of web technologies, advertising practices, and browser architectures, it remains unclear whether previously reported energy impacts of online advertising still hold in contemporary browsing environments. This study revisits the effect of ad blocking using modern browsers and high-traffic websites.
 
-1. H<sub>0</sub>: Enabling uBlock Origin does not significantly change mean browser power consumption.
-2. H<sub>1</sub>: Enabling uBlock Origin reduces mean browser power consumption by 15%.
 
 The study is guided by the following research questions:
 
@@ -55,6 +53,12 @@ The study is guided by the following research questions:
 
 2. RQ2: How much of the variation in browser power consumption can be explained by changes in downloaded data volume and processing load when using uBlock Origin?
 
+RQ1 is evaluated using a confirmatory hypothesis test. The main hypothesis is:
+
+1. H<sub>0</sub>: Enabling uBlock Origin does not significantly change mean browser power consumption.
+2. H<sub>1</sub>: Enabling uBlock Origin reduces mean browser power consumption by 15%.
+
+RQ2 is treated as exploratory. Prior literature provides limited quantitative guidance on the contribution of network and processing factors in modern browsers. Therefore, no formal hypothesis is specified for RQ2.
 
 
 
