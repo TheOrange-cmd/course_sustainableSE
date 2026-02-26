@@ -17,9 +17,9 @@ A working POC can be found [here](https://github.com/TheOrange-cmd/course_sustai
 
 ## Introduction
 
-As of 2024, the average person spends over six hours online every day, contributing to a global data usage of nearly 400 million terabytes per day (Statista, 2024)[^statista]. While much of the sustainability discussions focus on the massive energy influence of data centers, which accounted for example for 4% of US national energy consumption in 2023 (Shehabi et al., 2024)[^shehabi], the energy usage by billions of end-user devices still has an essential impact. Every website load requires processing scripts, layout elements, and media.
+As of 2024, the average person spends over six hours online every day, contributing to a global data usage of nearly 400 million terabytes per day (Statista, 2024). While much of the sustainability discussions focus on the massive energy influence of data centers, which accounted for example for 4% of US national energy consumption in 2023 (Shehabi et al., 2024), the energy usage by billions of end-user devices still has an essential impact. Every website load requires processing scripts, layout elements, and media.
 
-However, some of the load is dedicated not to the content requested by the user, but to the "invisible" and sometimes not web advertisements and tracking scripts. Previous research suggests that these elements introduce a measurable overhead. For example, advertisements can add several watts of power consumption to a single browsing session (Simons & Pras)[^web-ads].
+However, some of the load is dedicated not to the content requested by the user, but to the "invisible" and sometimes not web advertisements and tracking scripts. Previous research suggests that these elements introduce a measurable overhead. For example, advertisements can add several watts of power consumption to a single browsing session (Simons & Pras, 2010).
 
 Given the size of internet use, reducing the energy cost of loading a webpage can lead to significant savings in energy, as ad blockers like uBlock Origin claim to increase efficiency by preventing these scripts from ever loading. This project will try to experiment with that claim by comparing the energy consumption of four major browsers (Chrome, Firefox, Edge, and Brave) on different websites to determine if ads and script filtering can lower a device's carbon footprint.
 
@@ -38,9 +38,9 @@ The efficiency of an ad blocker is often tied to the performance and functionali
 
 ## Expected Effects and Hypothesis
 
-Prior work shows that online advertising introduces measurable overhead in web browsing workloads, which, in turn, increases device energy consumption. Simons and Pras[^web-ads] demonstrate that advertisements can add several watts of power consumption to during browsing sessions. This establishes a clear mechanism through which ad blocking may reduce energy use.
+Prior work shows that online advertising introduces measurable overhead in web browsing workloads, which, in turn, increases device energy consumption. Simons and Pras (2010) demonstrate that advertisements can add several watts of power consumption to during browsing sessions. This establishes a clear mechanism through which ad blocking may reduce energy use.
 
-Subsequent studies reinforce this expectation. Pearce[^load-time] reports page loading times being reduced with up to 28% when using common ad blockers, suggesting a meaningful decrease in computational work. Because CPU and GPU use are closely linked to power consumption, such reductions indicates corresponding energy savings. Direct measurements of Khan et al.[^measure-paper] further confirm this relation, showing average power reductions of around 40% on multimedia websites, when ad blockers are enabled. However, these effects vary substantially by website type (multimedia, news, etc.).
+Subsequent studies reinforce this expectation. Pearce (2020) reports page loading times being reduced with up to 28% when using common ad blockers, suggesting a meaningful decrease in computational work. Because CPU and GPU use are closely linked to power consumption, such reductions indicates corresponding energy savings. Direct measurements of Khan et al. (2024) further confirm this relation, showing average power reductions of around 40% on multimedia websites, when ad blockers are enabled. However, these effects vary substantially by website type (multimedia, news, etc.).
 
 Given the variability reported in literature, the present study expects a mean reduction in power consumption of 15% (SD 10%) when ad blocking is enabled. This conservative estimate reflects the variability observed across different website categories and browsers, while remaining consistent with previously reported values.
 
@@ -140,16 +140,14 @@ Future work may expand the range of websites, browsers, ad blocking tools and ha
 
 # References
 
-[^web-ads] R. J. G. Simons and A. Pras, “The Hidden Energy Cost of Web Advertising”, Aug. 2010.
-
-[^load-time] J. M. Pearce, “Energy Conservation with Open Source Ad Blockers,” Technologies, vol. 8, no. 2, p. 18, Mar. 2020, doi: 10.3390/technologies8020018.
-
-[^measure-paper] K. A. Khan, M. T. Iqbal, and M. Jamil, “Impact of Ad Blockers on Computer Power Consumption while Web Browsing: A Comparative Analysis,” EJECE, vol. 8, no. 5, pp. 18–24, Oct. 2024, doi: 10.24018/ejece.2024.8.5.650.
-
-[^statista] Statista. (2024). Volume of data created, captured, copied, and consumed worldwide from 2010 to 2025.
-
-[^shehabi] Shehabi et al. (2024): Shehabi, A., et al. (2024). United States Data Center Energy Usage Report. Lawrence Berkeley National Laboratory.
-
-# References 
+Khan, K. A., Iqbal, M. T., & Jamil, M. (2024). "Impact of Ad Blockers on Computer Power Consumption while Web Browsing: A Comparative Analysis". European Journal of Electrical Engineering and Computer Science, 8(5), 18–24. https://doi.org/10.24018/ejece.2024.8.5.650
 
 Lowe, P. (2026). “Ad blocking with ad server hostnames and IP addresses.” [Online]. Available: https://pgl.yoyo.org/adservers/. [Accessed: 26 Feb 2026].
+
+Pearce, J. M. (2020). "Energy Conservation with Open Source Ad Blockers. Technologies", 8(2), 18. https://doi.org/10.3390/technologies8020018
+
+Shehabi et al. (2024). Shehabi, A., et al. (2024). "United States Data Center Energy Usage Report. Lawrence Berkeley National Laboratory".
+
+Simons, R. J. G. &  Pras, A. (2010, August) "The Hidden Energy Cost of Web Advertising".
+
+Statista. (2024). "Volume of data created, captured, copied, and consumed worldwide from 2010 to 2025".
