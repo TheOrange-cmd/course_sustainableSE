@@ -124,27 +124,100 @@ The analysis revealed a wide variance in the ad blocker's effect size (Cohen's *
 
 Based on these findings and the practical time constraints of the project, a sample size of **N=20 trials per configuration** was chosen. This number represents a pragmatic balance, providing sufficient statistical power for the majority of configurations exhibiting a medium-to-large effect, while acknowledging that the study may be underpowered for configurations with very small true effect sizes. All 84 configurations were included in the main experiment regardless of their pilot study recommendation to ensure a complete dataset.
 
+### Data Analysis
+Energy consumption was calculated by estimating the integral of the CPU Package Power over the 30-second measurement window using the trapezoidal rule. Outliers (defined as having a Z-score > 3) were removed prior to hypothesis testing, resulting in the exclusion of 3 out of 1680 runs (0.2%).
+
+The Shapiro-Wilk test was used to assess normality for each browser-website combination's distribution. For normally distributed groups (72.6% of data), Welch's t-test and Cohen's *d* were used for hypothesis testing. For non-normal groups (27.4%), the non-parametric Mann-Whitney U test and Common Language Effect Size (CLES) were applied. To control the false positive rate while evaluating 42 unique browser-website combinations, the Benjamini-Hochberg False Discovery Rate (FDR) correction was utilized with $q = 0.05$.
+
+## Results
+
+### RQ1: Effect of uBlock Origin on Power Consumption
+The primary hypothesis ($H_1$), positing a 15% reduction in mean browser power consumption from enabling uBlock Origin, was **rejected** across all tested browsers. Furthermore, the aggregate results yielded unexpected variations heavily dependent on the browser architecture:
+*   **Chrome**: Enabling uBlock Origin resulted in a statistically significant 11.8% energy *increase* (worse efficiency) ($p_{corrected} < 0.001$, CLES = 0.36).
+*   **Edge**: Yielded a non-significant 2.6% energy decrease ($p_{corrected} = 1.000$, CLES = 0.52).
+*   **Firefox**: Showed a statistically significant but very minor 2.9% energy decrease ($p_{corrected} = 0.032$, CLES = 0.56).
+
+While Chrome and Firefox exhibited statistically significant differences overall (allowing for a partial rejection of the null hypothesis $H_0$), neither browser achieved the 15% hypothesized savings. Note that due to Manifest V3 restrictions, Chrome was forced to use *uBlock Origin Lite*. This lighter extension protocol represents a structural difference compared to the standard extension running on Firefox, and is the likely driver of Chrome's energy penalty.
+
+![Energy Distribution by Browser](img/g26_adblocker_browser/violin_energy_j_by_browser.png)
+
+### Network Traffic Savings
+Despite the mixed power outcomes, network payload measurements strongly supported the extension's efficacy in network filtering. Across the board, uBlock Origin significantly reduced both total HTTP requests and transferred bytes, particularly on ad-heavy websites like *weeronline* and *telegraaf*.
+
+![Network Traffic: Adblock vs No Adblock](img/g26_adblocker_browser/network_savings.png)
+
+### RQ2: Contributors to Browser Power Variation
+To understand whether network data flow or processing load drove the variation in power consumption, a multiple linear regression was conducted ($R^2 = 0.910$). 
+
+The structural model revealed that differing hardware processing loads heavily dictated the final energy footprint:
+*   Changes in Average CPU Load ($\Delta CPU$) and Memory Load ($\Delta Memory$) were both highly significant predictors ($p < 0.001$).
+*   Changes in Data Volume ($\Delta Data$ MB) and GPU Load ($\Delta GPU$) were not statistically significant predictors ($p = 0.346$ and $p = 0.470$, respectively).
+
+This confirms that while ad blockers reduce network payload, it is the net change in CPU processing—either saved from executing ad scripts or expended by running the adblocker's logic—that fundamentally determines the energy outcome.
+
+### Site-Specific Adblock Efficiency (FDR-Corrected)
+Analysis of the 42 browser-website pairs revealed a distinct interaction between website ad-density and extension efficiency. Of the 42 pairs, 12 showed statistically significant differences after FDR correction.
+
+Ad-blockers provided significant energy savings primarily on ad-heavy sites. For instance, Firefox saved 34.8% energy on *9gag* ($p < 0.001$, $d = +3.60$) and 20.3% on *weeronline* ($p < 0.001$, $d = +1.50$). Conversely, on ad-light sites, the extension universally cost more energy. On *Wikipedia*, Edge incurred a 28.7% penalty ($p < 0.001$, CLES = 0.16), while on *Youtube*, Chrome incurred a 26.5% penalty ($p = 0.002$, CLES = 0.21).
+
+![Energy Savings Percentage by Website](img/g26_adblocker_browser/energy_diff_pct.png)
+
+## Results
+
+### RQ1: Effect of uBlock Origin on Power Consumption
+The primary hypothesis ($H_1$), positing a 15% reduction in mean browser power consumption from enabling uBlock Origin, was **rejected** across all tested browsers. Furthermore, the aggregate results yielded unexpected variations heavily dependent on the browser architecture:
+*   **Chrome**: Enabling uBlock Origin resulted in a statistically significant 11.8% energy *increase* (worse efficiency) ($p_{corrected} < 0.001$, CLES = 0.36).
+*   **Edge**: Yielded a non-significant 2.6% energy decrease ($p_{corrected} = 1.000$, CLES = 0.52).
+*   **Firefox**: Showed a statistically significant but very minor 2.9% energy decrease ($p_{corrected} = 0.032$, CLES = 0.56).
+
+While Chrome and Firefox exhibited statistically significant differences overall (allowing for a partial rejection of the null hypothesis $H_0$), neither browser achieved the 15% hypothesized savings. Note that due to Manifest V3 restrictions, Chrome was forced to use *uBlock Origin Lite*. This lighter extension protocol represents a structural difference compared to the standard extension running on Firefox, and is the likely driver of Chrome's energy penalty.
+
+![Energy Distribution by Browser](img/g26_adblocker_browser/violin_energy_j_by_browser.png)
+
+### Network Traffic Savings
+Despite the mixed power outcomes, network payload measurements strongly supported the extension's efficacy in network filtering. Across the board, uBlock Origin significantly reduced both total HTTP requests and transferred bytes, particularly on ad-heavy websites like *weeronline* and *telegraaf*.
+
+![Network Traffic: Adblock vs No Adblock](img/g26_adblocker_browser/network_savings.png)
+
+### RQ2: Contributors to Browser Power Variation
+To understand whether network data flow or processing load drove the variation in power consumption, a multiple linear regression was conducted ($R^2 = 0.910$). 
+
+The structural model revealed that differing hardware processing loads heavily dictated the final energy footprint:
+*   Changes in Average CPU Load ($\Delta CPU$) and Memory Load ($\Delta Memory$) were both highly significant predictors ($p < 0.001$).
+*   Changes in Data Volume ($\Delta Data$ MB) and GPU Load ($\Delta GPU$) were not statistically significant predictors ($p = 0.346$ and $p = 0.470$, respectively).
+
+This confirms that while ad blockers reduce network payload, it is the net change in CPU processing—either saved from executing ad scripts or expended by running the adblocker's logic—that fundamentally determines the energy outcome.
+
+### Site-Specific Adblock Efficiency (FDR-Corrected)
+Analysis of the 42 browser-website pairs revealed a distinct interaction between website ad-density and extension efficiency. Of the 42 pairs, 12 showed statistically significant differences after FDR correction.
+
+Ad-blockers provided significant energy savings primarily on ad-heavy sites. For instance, Firefox saved 34.8% energy on *9gag* ($p < 0.001$, $d = +3.60$) and 20.3% on *weeronline* ($p < 0.001$, $d = +1.50$). Conversely, on ad-light sites, the extension universally cost more energy. On *Wikipedia*, Edge incurred a 28.7% penalty ($p < 0.001$, CLES = 0.16), while on *Youtube*, Chrome incurred a 26.5% penalty ($p = 0.002$, CLES = 0.21).
+
+![Energy Savings Percentage by Website](img/g26_adblocker_browser/energy_diff_pct.png)
+
 
 ## Discussion
 
-Firefox demonstrated the most consistent energy savings when using an adblocker, approving the assumption that such extensions are universal energy-saving tools across all browsers. While Firefox achieved a 5.1% overall reduction in energy consumption, Chrome surprisingly consumed nearly 12% more energy with the extension enabled. This difference can likely be because of the architectural differences in how browsers handle extension logic. Firefox’s execution environment appears to manage the overhead of filtering rules more efficiently, allowing the energy reclaimed from blocked JavaScript and network requests to result in a net gain. In contrast, the high energy penalty observed in Chrome suggests that the Chromium extension engine may introduce a baseline computational cost that outweighs the benefits of removing ads, particularly on modern, optimized hardware like the Ryzen 7.
+While Firefox showed consistent energy savings when using adblocker supporting our theory, other browsers such as Chrome showed the opposite. In the analysis we discovered that Firefox achieves an overall of 2.9% in terms of energy savings, while Chrome and Edge show an overall of -11.8% and -2.6% respectively. Firefox's execution environment appears to manage the overhead of filtering rules more efficiently, allowing the energy reclaimed from blocked JavaScript and network requests to result in a net gain. In contrast, the high energy penalty observed in Chrome—fueled by the use of Manifest V3's *uBlock Origin Lite*—suggests that this lighter extension paradigm introduces a baseline computational cost that outweighs the benefits of removing ads, particularly on modern, optimized hardware like the Ryzen 7.
 
-The data further reveals that energy efficiency is highly dependent on the "ad-density" of the content being processed. On ad-heavy platforms like 9gag or Weeronline, the reduction in CPU-intensive scripts led to significant energy savings (up to 34.8%), resulting in a much more favorable Energy Delay Product (EDP). However, on ad-light sites such as Wikipedia, the adblocker provides no benefits, turning the extension into resource overhead. This explains the massive 25.9% energy increase seen on Edge when browsing Wikipedia.
+The data further reveals that energy efficiency is highly dependent on the "ad-density" of the content being processed. This is enforced by our regression model, which confirms that Changes in Average CPU Load ($\Delta CPU$) and Memory ($ \Delta Memory$) explain the majority of the energy variance (rather than raw data payload size). On ad-heavy platforms like 9gag or Weeronline, the reduction in CPU-intensive scripts led to significant energy savings (up to 34.8%), resulting in a much more favorable footprint. However, on ad-light sites such as Wikipedia, the adblocker provides no benefits, turning the extension into resource overhead. This explains the massive 28.7% energy increase seen on Edge when browsing Wikipedia.
 
-Therefore, these findings suggest that adblockers are not a "one-size-fits-all" solution for sustainable software practices. While they can drastically reduce the energy footprint of browsing ad-saturated media, they can paradoxically increase the energy footprint of a user's digital life if used on a browser with high extension overhead or while visiting minimalist websites. To further validate these results, it would be beneficial to analyze the Per-Component Power Breakdown to see if the energy spike in Chrome is driven specifically by increased CPU load or if the GPU is playing a role in rendering the filtered DOM.
+Therefore, these findings suggest that adblockers are not a "one-size-fits-all" solution for sustainable software practices. While they can drastically reduce the energy footprint of browsing ad-saturated media, they can paradoxically increase the energy footprint of a user's digital life if used on a browser with high extension overhead or while visiting minimalist websites.
 
-This way, for website owners and advertisers, the data proves that "ad-heavy" design isn't just annoying, it's also ecologically expensive. When a site like 9gag sees a 34.8% energy increase due to ads, it creates an initiative for users to reach for a blocker. Sustainable web design means finding a middle ground where monetization doesn't compromise the user's battery life. Simultaneously, adblocker developers should take note of the "Chrome penalty." The fact that an extension can increase energy consumption by nearly 12% suggests a need for more "passive" filtering algorithms that power down when no ads are detected.
+This way, for website owners and advertisers, the data proves that "ad-heavy" design isn't just annoying, it's also ecologically expensive. When a site like 9gag sees a 34.8% energy decrease by simply turning ads off, it creates an initiative for users to reach for a blocker. Sustainable web design means finding a middle ground where monetization doesn't compromise the user's battery life. Simultaneously, adblocker developers should take note of the "Chrome penalty." The fact that an extension can increase energy consumption by 11.8% suggests a need for more "passive" filtering algorithms that power down when no ads are detected, or alternatively, dedicated profiling behind Manifest V3's efficiency.
 
-For the everyday user, the most impactful takeaway is that digital sustainability requires a bit of manual tuning. Since adblockers incur a "logic tax" even on minimalistic sites, running them on ad-free domains like Wikipedia or internal company wikis is essentially wasting for a service you aren't using. We recommend a "selective blocking" approach: keep your adblocker active for the chaotic, ad-saturated websites, but use the "Power" or "Disable" toggle in your extension toolbar to whitelist sites you know are clean. By turning off uBlock on a site like Wikipedia, you could reduce that page's energy footprint by over 25% on browsers like Edge, proving that sometimes, the most sustainable move is simply doing less.
+For the everyday user, the most impactful takeaway is that digital sustainability requires a bit of manual tuning. Since adblockers incur a "logic tax" even on minimalistic sites, running them on ad-free domains like Wikipedia or internal company wikis is essentially paying computationally for a service you aren't using. We recommend a "selective blocking" approach: keep your adblocker active for the chaotic, ad-saturated websites, but use the "Power" or "Disable" toggle in your extension toolbar to whitelist sites you know are clean. By turning off uBlock on a site like Wikipedia, you could reduce that page's energy footprint by over 28% on browsers like Edge, proving that sometimes, the most sustainable move is simply doing less.
 
 
 ## Limitations and Future Work
 
 Several limitations and possible extensions should be considered when interpreting the results of this study. First, the experiments were conducted on one machine and measured using LibreHardwareMonitor. Although this tool provides sensor data, software-based power readings may differ from external power meter measurements. Additionally, the results cannot be generalized for other hardware configurations, where power management behaviour can differ substantially. 
 
-Secondly, the study evaluates a limited set of websites and browsers. Advertising intensity can vary widely across websites, which may lead to different energy impacts than observed in the current study. Similarly, only one ad blocker configuration (i.e. uBlock Origin) was tested. Alternative tools may produce different effects.
+Secondly, the study evaluates a limited set of websites and browsers. Advertising intensity can vary widely across websites, which may lead to different energy impacts than observed in the current study. Similarly, only one ad blocker configuration (i.e. uBlock Origin and uBlock Origin Lite) was tested. Alternative tools may produce different effects.
 
 Thirdly, environmental and system factors were controlled, but only to the best of our ability. Variations in network conditions or background processes may introduce noise into the power measurements. While introducing randomization and repeated runs may mitigate some variability, unmeasured factors may still influence the results.
+
+Finally, the experimental design utilized a fixed 30-second measurement window for every trial. Because the duration was artificially fixed, time-dependent efficiency metrics like the Energy Delay Product (EDP) could not comprehensively capture time-to-interactive differences. Future experiments should allow page loads to complete naturally rather than cutting them off, accurately assessing if adblocking delivers a tangible user-experience speed improvement that translates into a genuinely lower Energy Delay Product.
 
 Future work may expand the range of websites, browsers, ad blocking tools and hardware configurations, to improve the generalizability of these findings.
 
