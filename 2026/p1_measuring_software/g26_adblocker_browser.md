@@ -199,6 +199,12 @@ Our experiment reveals that the "green" reputation of adblockers is not a univer
 
 Ultimately, for the modern web user, the path to a lower energy footprint isn't through "set and forget" settings, but through intentional browsing and adjusting of extension settings. By whitelisting ad-light sites and choosing browsers with efficient environments, we can ensure that our efforts to have a sustainable web don't end up costing more than the ads themselves.
 
+## Replication package
+
+For readers interested in replicating the experiment, please visit the following github repository. Note, some experience with python is recommended. 
+
+Go here: [Click](https://github.com/TheOrange-cmd/replication_package_SSE_p1)
+
 # References
 
 Khan, K. A., Iqbal, M. T., & Jamil, M. (2024). "Impact of Ad Blockers on Computer Power Consumption while Web Browsing: A Comparative Analysis". European Journal of Electrical Engineering and Computer Science, 8(5), 18–24. https://doi.org/10.24018/ejece.2024.8.5.650
